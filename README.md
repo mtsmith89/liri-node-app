@@ -28,7 +28,7 @@ LIRI is knockoff of SIRI
 
 Retrieves 20 latest tweets:
 
-`node liri.js my-tweets`"sprint"
+`node liri.js my-tweets "sprint"`
 
 ### spotify-this-song
 
