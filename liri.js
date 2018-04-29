@@ -9,6 +9,7 @@ var client = new Twitter(keys.twitter);
 var spotify = new Spotify(keys.spotify);
 var omdbAPIKEY = Object.values(keys.omdb);
 var liriArg = process.argv[2];
+var count = 1;
 
 switch (liriArg) {
   case "my-tweets":
@@ -88,7 +89,6 @@ function movieThis(movie) {
     }
   );
 }
-// Tweet function, uses the Twitter module to call the Twitter api
 function myTweets(twitterUsername) {
   if (!twitterUsername) {
     twitterUsername = "Smith2Travis";
@@ -101,7 +101,6 @@ function myTweets(twitterUsername) {
   ) {
     if (!error) {
       for (var i = 0; i < data.length; i++) {
-        //console.log(response); // Show the full response in the terminal
         var twitterResults =
           "@" +
           data[i].user.screen_name +
@@ -111,16 +110,18 @@ function myTweets(twitterUsername) {
           data[i].created_at +
           "\r\n" +
           "------------------------------ " +
-          i +
+          count +
           " ------------------------------" +
           "\r\n";
         console.log(twitterResults);
-        log(twitterResults); // calling log function
+        count++;
+        log(twitterResults);
       }
     } else {
       console.log("Error :" + error);
       return;
     }
+    count=1;
   });
 }
 
@@ -138,15 +139,17 @@ function spotifyThisSong(songName) {
                     "Song: " + songInfo[i].name + "\r\n" +
                     "Preview Url: " + songInfo[i].preview_url + "\r\n" + 
                     "Album the song is from: " + songInfo[i].album.name + "\r\n" +
-                    "------------------------------ " + i + " ------------------------------" + "\r\n";
+                    "------------------------------ " + count + " ------------------------------" + "\r\n";
                     console.log(spotifyResults);
-                    log(spotifyResults); // calling log function
+                    count++;
+                    log(spotifyResults);
                 }
             }
         }	else {
             console.log("Error :"+ err);
             return;
         }
+        count=1;
     });
 };
 
@@ -154,7 +157,6 @@ function doWhatItSays() {
   fs.readFile("random.txt", "utf8", function(error, data) {
     if (!error) {
       doWhatItSaysResults = data.split(",");
-      console.log(doWhatItSaysResults[1]);
       spotifyThisSong(doWhatItSaysResults[1]);
     } else {
       console.log("Error occurred" + error);
