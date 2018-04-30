@@ -129,7 +129,7 @@ function spotifyThisSong(songName) {
     if(!songName){
         songName = "The sign";
     }
-    spotify.search({ type: "track", query: songName }, function(err, data) {
+    spotify.search({ type: "track", query: "\"" + songName + "\"" }, function(err, data) {
         if(!err){
             var songInfo = data.tracks.items;
             for (var i = 0; i < 5; i++) {
